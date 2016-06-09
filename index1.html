@@ -88,8 +88,13 @@
 		  return getAge(a) - getAge(b)
 		}
 		function compareName(a , b){
-			console.log(getName(a), getName(b))
-			return getName(a), getName(b)
+			if(getName(a) < getName(b)){
+				return -1;
+			}
+			if(getName(a) > getName(b)){
+				return 1;
+			}
+
 		}
 		function getAge(li) {
 			var liValue = li.querySelector('span').textContent;
