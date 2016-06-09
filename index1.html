@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="">
+		<input type="text" name="input" value="" id="name" placeholder="Name">
+		<span id="name=error"></span><br>
+		<input type="text"  name="input" value="" placeholder="Firstname" id="firstname"><span id="firstname-error"></span><br>
+		<input type="number"  name="input" value="" placeholder="Age" id="age"><span id="age-error"></span><br>
+		<select name="profession" id="profession">
+			<option value="">Инжинер</option>
+			<option value="">Врач</option>
+			<option value="">Дворник</option>
+			<option value="">Бизнес-мен</option>
+			<option value="">Архитектор</option> 
+			<option value="">Учитель</option>
+		</select> <br>
+		<input type="button" value="ok" onclick="showText()">
+		<input type="button" value="name" id="name_sorting" class="button" onclick="sortByName()" >
+		<input type="button" value="profession" id="profesional_sorting" class="button" onclick="sortByClass()" >
+		<input type="button" value="experience" id="exper_sorting" class="button" onclick="sortByAge()">
+	</form>
+	<ol id="result"></ol>
+     
+     
+	<script>
+		var userName = document.getElementById("name");
+		var firstname = document.getElementById("firstname");
+		var age = document.getElementById("age");
+		var profession = document.getElementById('profession');
+	    //var prof = profession.options[profession.selectedIndex].text;
+	    var nameSorting = document.getElementById('name_sorting');
+	    var profesionalSorting =document.getElementById('profesional_sorting');
+	    var expSorting = document.getElementById('exper_sorting');
+	    var option = profession.getElementsByTagName('option')
+		var inputs=[userName, firstname, age];
+		var result = document.getElementById("result");
+		var arrayOfLi = [];
+
+		function showText() {
+	        var node = document.createElement("LI");
+	        var span = document.createElement("span")
+	        var close = document.createElement("input");
+			close.setAttribute("type", "button");
+			close.setAttribute("value", "close");
+			close.id ='close';
+			var prof = profession.options[profession.selectedIndex].text;
+        	var textnode = document.createTextNode( "Name: " + userName.value + " "+"firstname: "+firstname.value+" "+"Age: "+ age.value +"Profesion: "+" " + prof);
+			node.appendChild(span);
+			node.appendChild(close);
+			span.appendChild(textnode);
+			var allOk = [];
+			inputs.forEach(function(item, i) {
+				var elem = document.getElementById(item.id);
+				if (item.value ==="") {
+					elem.style.borderColor = 'red';
+					allOk[i] = false;
+				}else{
+					elem.style.borderColor = 'green';
+					allOk[i] = true;
+				}
+		  });
+		    if(allOk.join('').indexOf(false) === -1) {
+	        	document.getElementById("result").appendChild(node);
+	        	createArray();
+			}
+        	close.onclick = function(){
+	          	node.remove();
+	        }
+	    }
+      
+	    function createArray() {
+	      	var arr = [];
+	      	for (var i = 0; i < result.childNodes.length; i++) {
+		      arr.push(result.childNodes[i])
+		    }
+		    return arr
+		}
+		function clearResults() {
+			while(result.firstChild) {
+				result.removeChild(result.firstChild)
+			}
+		}
+  		function compareAge(a, b) {
+		  return getAge(a) - getAge(b)
+		}
+		function compareName(a , b){
+			console.log(getName(a), getName(b))
+			return getName(a), getName(b)
+		}
+		function getAge(li) {
+			var liValue = li.querySelector('span').textContent;
+      		return liValue.split('Age: ')[1].split('Profesion')[0];
+		}
+        function getName(li){
+      		var liValue = li.querySelector('span').textContent;
+      		return liValue.split('Name: ')[1].split('firstname: ')[0].toUpperCase();
+ 		}
+ 		function getProf(){
+            var optionValue = option.textContent;
+            //for (var i = 0; i < optionValue.length; i++) {
+            	 //return optionValue[i]
+           // }
+            
+ 		}
+		function sortByAge() {
+			var arrayOfLi = createArray();
+			arrayOfLi.sort(compareAge);
+			clearResults();
+			for(var i=0; i<arrayOfLi.length; i++) {
+				result.appendChild(arrayOfLi[i])
+			}
+		}
+		function sortByName(){
+    		var arrayOfLi = createArray();
+			arrayOfLi.sort(compareName);
+			clearResults();
+			 for(var i=0; i<arrayOfLi.length; i++) {
+				result.appendChild(arrayOfLi[i])
+			 }
+		}
+		  function sortByClass(){
+            console.log(getProf());
+	    }
+
+	</script>
+	<style>
+		input{
+			cursor:pointer;
+			padding: 5px;
+			margin-top: 15px;
+			border-radius: 6px;
+		}
+		#menu{
+			cursor:pointer;
+		}
+		#one-menu{
+			display: none;
+		}
+		#profession{
+			padding:5px;
+			border-radius: 3px;
+			margin-top:10px;
+		}
+	</style>
+</body>
+</html>
