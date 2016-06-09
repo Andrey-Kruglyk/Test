@@ -10,7 +10,7 @@
 		<span id="name=error"></span><br>
 		<input type="text"  name="input" value="" placeholder="Firstname" id="firstname"><span id="firstname-error"></span><br>
 		<input type="number"  name="input" value="" placeholder="Age" id="age"><span id="age-error"></span><br>
-		<select name="profession" id="profession">
+		<select name="profession" id="profession" onchange="sortByClass(this)">
 			<option value="">Инжинер</option>
 			<option value="">Врач</option>
 			<option value="">Дворник</option>
@@ -20,7 +20,14 @@
 		</select> <br>
 		<input type="button" value="ok" onclick="showText()">
 		<input type="button" value="name" id="name_sorting" class="button" onclick="sortByName()" >
-		<input type="button" value="profession" id="profesional_sorting" class="button" onclick="sortByClass()" >
+		<select name="professions" id="professions" onchange="sortByClass(this)">
+			<option value="">Инжинер</option>
+			<option value="">Врач</option>
+			<option value="">Дворник</option>
+			<option value="">Бизнес-мен</option>
+			<option value="">Архитектор</option> 
+			<option value="">Учитель</option>
+		</select>
 		<input type="button" value="experience" id="exper_sorting" class="button" onclick="sortByAge()">
 	</form>
 	<ol id="result"></ol>
@@ -104,13 +111,6 @@
       		var liValue = li.querySelector('span').textContent;
       		return liValue.split('Name: ')[1].split('firstname: ')[0].toUpperCase();
  		}
- 		function getProf(){
-            var optionValue = option.textContent;
-            //for (var i = 0; i < optionValue.length; i++) {
-            	 //return optionValue[i]
-           // }
-            
- 		}
 		function sortByAge() {
 			var arrayOfLi = createArray();
 			arrayOfLi.sort(compareAge);
@@ -127,9 +127,16 @@
 				result.appendChild(arrayOfLi[i])
 			 }
 		}
-		  function sortByClass(){
-            console.log(getProf());
-	    }
+		function sortByClass(selTag){
+			var prof = selTag.options[selTag.selectedIndex].text;
+            var profa = selTag.options[selTag.selectedIndex].text;
+			if (prof = profa) {
+		    for(var i=0; i<arrayOfLi.length; i++) {
+			 result.appendChild(arrayOfLi[i])
+		 	 }
+			}
+			clearResults()
+		}
 
 	</script>
 	<style>
