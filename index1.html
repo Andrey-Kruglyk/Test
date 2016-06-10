@@ -10,7 +10,7 @@
 		<span id="name=error"></span><br>
 		<input type="text"  name="input" value="" placeholder="Firstname" id="firstname"><span id="firstname-error"></span><br>
 		<input type="number"  name="input" value="" placeholder="Age" id="age"><span id="age-error"></span><br>
-		<select name="profession" id="profession" onchange="sortByClass(this)">
+		<select name="profession" id="profession" >
 			<option value="">Инжинер</option>
 			<option value="">Врач</option>
 			<option value="">Дворник</option>
@@ -20,7 +20,7 @@
 		</select> <br>
 		<input type="button" value="ok" onclick="showText()">
 		<input type="button" value="name" id="name_sorting" class="button" onclick="sortByName()" >
-		<select name="professions" id="professions" onchange="sortByClass(this)">
+		<select name="professions" id="professions" onchange="sortByClass()">
 			<option value="">Инжинер</option>
 			<option value="">Врач</option>
 			<option value="">Дворник</option>
@@ -38,6 +38,7 @@
 		var firstname = document.getElementById("firstname");
 		var age = document.getElementById("age");
 		var profession = document.getElementById('profession');
+		var professions = document.getElementById('professions')
 	    //var prof = profession.options[profession.selectedIndex].text;
 	    var nameSorting = document.getElementById('name_sorting');
 	    var profesionalSorting =document.getElementById('profesional_sorting');
@@ -127,15 +128,14 @@
 				result.appendChild(arrayOfLi[i])
 			 }
 		}
-		function sortByClass(selTag){
-			var prof = selTag.options[selTag.selectedIndex].text;
-            var profa = selTag.options[selTag.selectedIndex].text;
-			if (prof = profa) {
-		    for(var i=0; i<arrayOfLi.length; i++) {
-			 result.appendChild(arrayOfLi[i])
-		 	 }
+		function sortByClass(){
+			var x = professions.selectedIndex;
+			var y =professions.options;
+			var z = profession.selectedIndex;
+			var c = profession.options;
+			if (c[z].text) {
+				console.log(c[z].text);
 			}
-			clearResults()
 		}
 
 	</script>
