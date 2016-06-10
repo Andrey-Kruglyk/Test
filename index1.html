@@ -47,6 +47,7 @@
 		var inputs=[userName, firstname, age];
 		var result = document.getElementById("result");
 		var arrayOfLi = [];
+		
 
 		function showText() {
 	        var node = document.createElement("LI");
@@ -112,6 +113,11 @@
       		var liValue = li.querySelector('span').textContent;
       		return liValue.split('Name: ')[1].split('firstname: ')[0].toUpperCase();
  		}
+ 		function compareProf(li, ptof){
+ 			var liValue =li.querySelector('span').textContent; 
+ 			var lis = liValue.split('Profesion:  ')[1];	
+ 			return lis === ptof;
+ 		}
 		function sortByAge() {
 			var arrayOfLi = createArray();
 			arrayOfLi.sort(compareAge);
@@ -129,12 +135,21 @@
 			 }
 		}
 		function sortByClass(){
-			var x = professions.selectedIndex;
-			var y =professions.options;
-			var z = profession.selectedIndex;
-			var c = profession.options;
-			if (c[z].text) {
-				console.log(c[z].text);
+			var prof =professions.selectedIndex;
+			var profa = professions.options;
+			var professiont = profa[prof].text;
+			var arrayOfLi = createArray();
+			var newArr =[];
+			var li;
+			clearResults();
+			for(var i=0; i<arrayOfLi.length; i++) {
+				li = compareProf(arrayOfLi[i], professiont);
+				if(li) {
+					newArr.push(arrayOfLi[i])
+				}			
+			}
+			for(var i=0; i < newArr.length; i++) {
+				result.appendChild(newArr[i])
 			}
 		}
 
